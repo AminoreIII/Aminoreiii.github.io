@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>线代笔记 | Aminore</title><meta name="author" content="Aminore"><meta name="copyright" content="Aminore"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="引入 线性代数研究矩阵, 矩阵由向量组成. 我们从向量讲起">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线代笔记">
+<meta property="og:url" content="http://example.com/2025/10/21/Notes/Mathematics/LinearNotes/index.html">
+<meta property="og:site_name" content="Aminore">
+<meta property="og:description" content="引入 线性代数研究矩阵, 矩阵由向量组成. 我们从向量讲起">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avt.jpg">
+<meta property="article:published_time" content="2025-10-21T02:12:50.540Z">
+<meta property="article:modified_time" content="2025-10-21T10:45:45.357Z">
+<meta property="article:author" content="Aminore">
+<meta property="article:tag" content="ClassNotes">
+<meta property="article:tag" content="ReadingNotes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avt.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "线代笔记",
+  "url": "http://example.com/2025/10/21/Notes/Mathematics/LinearNotes/",
+  "image": "http://example.com/img/avt.jpg",
+  "datePublished": "2025-10-21T02:12:50.540Z",
+  "dateModified": "2025-10-21T10:45:45.357Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Aminore",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/10/21/Notes/Mathematics/LinearNotes/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '线代笔记',
+  isHighlightShrink: true,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.0.0"></head><body><div id="web_bg" style="background-color: #000000;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avt.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-question-circle"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/topimg.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Aminore</span></a><a class="nav-page-title" href="/"><span class="site-name">线代笔记</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-question-circle"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">线代笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-21T02:12:50.540Z" title="发表于 2025-10-21 10:12:50">2025-10-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-21T10:45:45.357Z" title="更新于 2025-10-21 18:45:45">2025-10-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="引入">引入</h3>
+<p>线性代数研究矩阵, 矩阵由向量组成. 我们从向量讲起</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Aminore</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/10/21/Notes/Mathematics/LinearNotes/">http://example.com/2025/10/21/Notes/Mathematics/LinearNotes/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Aminore</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ClassNotes/">ClassNotes</a><a class="post-meta__tags" href="/tags/ReadingNotes/">ReadingNotes</a></div><div class="post-share"><div class="social-share" data-image="/img/avt.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/21/Notes/Biology/BioSummary/" title="BioSummary"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">BioSummary</div></div><div class="info-2"><div class="info-item-1">待分类材料 phage Diversity 待分类方法 数量的感觉 对比 Genomic library 和 cDNA library Q:定量吗? 研究可以跨越Environment 和 Genotype 的界限, 但应用要考虑, 甚至要针对Environment. 从隐到显: selectable mark 材料 荧光蛋白 方法 形式转移 方法 1.逆转录  </div></div></div></a><a class="pagination-related" href="/2025/10/20/Notes/Chemistry/ChemNotes/" title="无机化学"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">无机化学</div></div><div class="info-2"><div class="info-item-1">随记 这课讲废了 与物理的交界处 Content 从宏观现象到微观理论 1.理想气体 公式表  氢原子轨道能量(eV)  E=−1.36∗Z2n2E=-1.36*\frac{Z^2}{n^2} E=−1.36∗n2Z2​    </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/20/Notes/Chemistry/ChemNotes/" title="无机化学"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-20</div><div class="info-item-2">无机化学</div></div><div class="info-2"><div class="info-item-1">随记 这课讲废了 与物理的交界处 Content 从宏观现象到微观理论 1.理想气体 公式表  氢原子轨道能量(eV)  E=−1.36∗Z2n2E=-1.36*\frac{Z^2}{n^2} E=−1.36∗n2Z2​    </div></div></div></a><a class="pagination-related" href="/2025/10/22/Notes/EngNotes/" title="EngNotes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-22</div><div class="info-item-2">EngNotes</div></div><div class="info-2"><div class="info-item-1">词根记录 democracy:民主 demographer:人口统计学 用词积累 venture: 合作的;合资的 venture university;venture company quit: 戒除 quit drug addiction 好句  A is to B what (as) A’ is to B’ 例: Physics is to Mathmatics what sex is to masturbation.    </div></div></div></a><a class="pagination-related" href="/2025/10/20/Notes/Biology/BioNotes/" title="生导笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-20</div><div class="info-item-2">生导笔记</div></div><div class="info-2"><div class="info-item-1">2025.10.20 keywords:       blendy inheritage--       character:something abstracted and cared       trait:form of a character       parental generation       filial generation       phenotype:表型       genotype:       diploid       segregation:分离       gamete:配子       meiosis:减数分裂       mutation:突变       pedigree:系谱       locus:基因座       allele:等位基因       antigen:抗原       epistasis:基因互作       hybrid vigor:杂种优势  Hypothesis 线粒体基因遗传模式的差异在于sperm和egg中线粒体量之差. Questions -[1] What is acharacter? -[2] ...</div></div></div></a><a class="pagination-related" href="/2025/10/22/Notes/Mathematics/AnaNotes/" title="AnaClassNote"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-22</div><div class="info-item-2">AnaClassNote</div></div><div class="info-2"><div class="info-item-1">2025.10.22 Points 1.连续性: (形容点x) ∀x∈Df,∀ε&gt;0,∃δ&gt;0,s.t.∀x′∈Df(∣x−x′∣&lt;δ):∣f(x)−f(x′)∣&lt;ε\forall x\in D_f,\forall\varepsilon&gt;0,\exist\delta&gt;0,s.t.\forall x&#x27;\in D_f(|x-x&#x27;|&lt;\delta):|f(x)-f(x&#x27;)|&lt;\varepsilon ∀x∈Df​,∀ε&gt;0,∃δ&gt;0,s.t.∀x′∈Df​(∣x−x′∣&lt;δ):∣f(x)−f(x′)∣&lt;ε 2.一致连续性(与定义域形状无关):?(似乎可以有断点)(形容?函数) 若函数 f:Df→Rf:D_f\to Rf:Df​→R, 满足:$$\forall\varepsilon&gt;0, \exist\delta&gt;0,s.t.\forall x,x’\in D_f(|x-x’|&lt;\delta):|f(x)-f(x’)|&lt;\varepsilon$$ thoughts ...</div></div></div></a><a class="pagination-related" href="/2025/10/19/Notes/TLSnotes/" title="Scheme 学习记录 1"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-19</div><div class="info-item-2">Scheme 学习记录 1</div></div><div class="info-2"><div class="info-item-1">到现在 The Little Schemer 读了一百多页, 可以说是学有所感, 故做出如下记录. Scheme 的特点 我想, Sheme 的表达能力之所以强悍, 在于它的公理化. 它定义了极少的基本的函数(所有都可以转化为七个最基本的符号), 这些函数的功能也相当基础. 但结合语言本身的特性, 以及语法的简洁, 我们可以轻易地造出各种轮子, 进而造车. 函数也可以是参数和返回值, 这样的特性可提高代码复用率. 书中所学 语法很简单, 思想不简单. 作为开发者, 我们应首先了解递归的思想方法, 并尝试应用&quot;一切皆数据&quot;. \lambda 演算是Scheme的核心, 一切函数都是\lambda 可定义的 如何用列表定义数和函数(这意味着你可以用Scheme重写Scheme). 例:列表 到 整数 123456;假定下面函数的arguement是一个只含空表的列表(define ls-&gt;Nnumber     (lambda (ls)         (cond         ((null? ls) 0)        (else (+ 1 (ls-&g...</div></div></div></a><a class="pagination-related" href="/2025/10/20/Notes/Mathematics/Analysis/" title="分析思读笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-20</div><div class="info-item-2">分析思读笔记</div></div><div class="info-2"><div class="info-item-1">引入 我们仍然从定义的终点–集合–开始. 如程序中&quot;如何用列表定义数和函数&quot;一节所述, 我们拥有定义N\mathbb{N}N的符号基础. 那么如何用行为定义N\mathbb{N}N呢? Peano公理 自然数集N\mathbb{N}N由以下公理唯一确定(只在意行为,不在意符号): I\mathrm{I}I. 0∈N0\in\mathbb{N}0∈N II\mathrm{II}II. ∃S:N→N,n↦S(n)\exist S:\mathbb{N}\to\mathbb{N},n\mapsto S(n)∃S:N→N,n↦S(n) III\mathrm{III}III. ∀n∈N,S(n)≠0\forall n\in\mathbb{N},S(n)\neq 0∀n∈N,S(n)=0 IV\mathrm{IV}IV. ∀n,n′∈N(n≠n′):S(n)≠S(n′)\forall n,n&#x27;\in\mathbb{N}(n\neq n&#x27;):S(n)\neq S(n&#x27;)∀n,n′∈N(n=n′):S(n)=S(n′) V\mathrm{V}...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC82MDk2NC8zNzQzNA=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avt.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Aminore</div><div class="author-info-description">我让你飞起来</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AminoreIII"><i class="fab fa-github"></i><span>The Author</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:Aminore_III@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5"><span class="toc-number">1.</span> <span class="toc-text">引入</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/23/Notes/Draft/" title="无标题">无标题</a><time datetime="2025-10-23T00:48:19.238Z" title="发表于 2025-10-23 08:48:19">2025-10-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/22/Notes/Mathematics/AnaNotes/" title="AnaClassNote">AnaClassNote</a><time datetime="2025-10-22T01:56:59.799Z" title="发表于 2025-10-22 09:56:59">2025-10-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/22/Notes/EngNotes/" title="EngNotes">EngNotes</a><time datetime="2025-10-22T00:54:52.338Z" title="发表于 2025-10-22 08:54:52">2025-10-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/21/Notes/GeneralThoughts/" title="General Thoughts">General Thoughts</a><time datetime="2025-10-21T10:24:18.036Z" title="发表于 2025-10-21 18:24:18">2025-10-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/21/Notes/Biology/BioSummary/" title="BioSummary">BioSummary</a><time datetime="2025-10-21T10:19:08.028Z" title="发表于 2025-10-21 18:19:08">2025-10-21</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: #2E8689;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Aminore</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.0.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const loadLivere = (el, path) => {
+    window.livereOptions = {
+      refer: path || location.pathname
+    }
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyLivere = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    if (typeof LivereTower === 'object') window.LivereTower.init()
+    else {
+      (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    }
+  }
+
+  if (isShuoshuo) {
+    'Livere' === 'Livere'
+      ? window.shuoshuoComment = { loadComment: loadLivere }
+      : window.loadOtherComment = loadLivere
+    return
+  }
+
+  if ('Livere' === 'Livere' || !false) {
+    if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+    else loadLivere()
+  } else {
+    window.loadOtherComment = loadLivere
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
